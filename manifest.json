@@ -1,0 +1,7 @@
+{
+  "name": "star-wars-app",
+  "short_name": "star-wars-app",
+  "description": "A wiki for star wars",
+  "start_url": "/",
+  "display": "standalone"
+}

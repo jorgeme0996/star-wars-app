@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/card-component/card-component.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+
+<dom-module id="star-wars-panel">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            card-component {
+                padding: 2%;
+            }
+        </style>
+        <dom-repeat items="[[planets]]" as="planet">
+            <template>
+                <card-component planet="[[planet]]"></card-component>
+            </template>
+        </dom-repeat>
+    </template>
+    <script>
+        class StarWarsPanel extends Polymer.Element {
+            static get is() { return 'star-wars-panel'}
+            static get properties() {
+                return {
+                    planets: {
+                        type: Array,
+                        value: () => {
+                            []
+                        }
+                    }
+                }
+            }
+        }
+
+        window.customElements.define(StarWarsPanel.is, StarWarsPanel);
+    </script>
+</dom-module>

@@ -1,0 +1,65 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../star-wars-panel/star-wars-panel.html">
+
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+<dom-module id="star-wars-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        font-family: 'Roboto', sans-serif;
+      }
+    </style>
+    <iron-ajax
+      auto 
+      method="get"
+      url="https://swapi.co/api/planets/"
+      handle-as="json"
+      on-response="getPlanets"
+      on-error="errorGetPlanets"
+      debounce-duration="300"
+    ></iron-ajax>
+    
+    <h2>Planetas [[numPlanets]]</h2>
+    <star-wars-panel planets="[[planets]]"></star-wars-panel>
+    
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class StarWarsApp extends Polymer.Element {
+      static get is() { return 'star-wars-app'; }
+      static get properties() {
+        return {
+          numPlanets:{
+            type: Number,
+            value: 0
+          },
+
+          planets: {
+            type: Array,
+            value () {
+              return []
+            }
+          }
+        };
+      }
+
+      getPlanets(event){
+        this.set('numPlanets', event.detail.response.results.length)
+        this.set('planets',event.detail.response.results)
+      }
+
+      errorGetPlanets(event){
+        console.log(event.detail.error);
+      }
+    }
+
+    window.customElements.define(StarWarsApp.is, StarWarsApp);
+  </script>
+</dom-module>
